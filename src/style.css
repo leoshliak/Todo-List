@@ -1,0 +1,145 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+
+body{
+   font-size: 16px;
+   color: #fff;
+   background-color: #000;
+}
+
+header{
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+}
+
+.header-content{
+    height: 11vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    justify-content: space-between;
+    
+}
+
+.logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    font-size: 1.2em;
+}
+
+img{
+    width: 60px;
+    height: 60px;
+    margin-left: 30px;
+    margin-right: 3px;
+    margin-bottom: 10px;
+}
+
+
+.add-button{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #000;
+    border: 2px solid gray;
+    color: #fff;
+    font-size: 4em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 40px;
+    
+}
+
+.add-button:hover{
+    transform: scale(1.05);
+    background-color: #1a1a1a;
+    border: 2px solid #b9b9b9;
+    transition: all 0.1s ease-out;
+}
+
+.add-button:active{
+    transform: scale(1);
+    background-color: #000;
+    border: 2px solid gray;
+}
+
+main{
+    margin-top: 11vh;
+    height: 89vh;
+    width: 100%;
+    display: grid;
+    grid-template-columns:  280px  1fr;
+}
+
+
+nav{
+    height: 100%;
+    position: sticky;
+    top: 0;
+}
+
+.nav-list{
+    list-style: none;
+    display: grid;
+    gap: 2rem;
+    font-size: 1.6rem;
+    padding-block: 2rem;
+    margin-top: 20px;
+}
+
+.nav-list li{
+    padding: 1rem 2rem;
+    margin-left: 2.5rem;
+    border-radius: 100vw 0 0 100vw;
+    
+}
+
+.nav-list li.active{
+    background-color: #123;
+    position: relative;
+    
+}
+
+a{
+    text-decoration: none;
+    color: #fff;
+    pointer-events: none;
+}
+
+
+.nav-list li.active::before,
+.nav-list li.active::after{
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: #000;
+}
+
+.nav-list li.active::before{
+    top: calc(1.5rem * -1);
+    box-shadow: 5px 5px 0 5px #123;
+    border-radius: 0 0 100vw 0;
+}
+
+.nav-list li.active::after{
+    bottom: calc(1.5rem * -1);
+    box-shadow: 5px -5px 0 5px #123;
+    border-radius: 0 100vw 0 0;
+}
+
+.content{
+    background-color: #123;
+    border-radius: 30px 0 0 0;
+}
