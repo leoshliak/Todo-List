@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ce1faa7116.js" crossorigin="anonymous"></script>
     <title>Todo List</title>
 </head>
 <body>
@@ -18,15 +19,84 @@
     <main>
     <nav>
         <ul class="nav-list">
-          <li class="list-link active">
-            <a href="#"><span>All</span></a></li>
-          <li class="list-link"><a href="#"><span>Today</span></a></li>
-          <li class="list-link"><a href="#"><span>Week</span></a></li>
-          <li class="list-link"><a href="#"><span>Important</span></a></li>
-          <li class="list-link"><a href="#"><span>Projects</span></a></li>
+          <li class="list-link active" id="all">
+            <span>All</span></li>
+          <li class="list-link" id="today"><span>Today</span></li>
+          <li class="list-link" id="week"><span>Week</span></li>
+          <li class="list-link" id="important"><span>Important</span></li>
+          <li class="list-link" id="projects"><span>Projects</span></li>
         </ul>
     </nav>
-       <div class="content"></div>
+       <div class="content">
+        <div class="tasks">
+          <div class="todo priority-low">
+            <div class="todo-left">
+            <input class="complete" type="checkbox">
+            <p class="todo-title">title</p></div>
+            <div class="todo-right">
+              <button>Details</button>
+              <p class="date">1123</p>
+              <i class="fa-solid fa-pen-to-square"></i>
+              <i class="fa-solid fa-trash-can"></i>
+            </div>
+          </div>
+          <div class="todo priority-medium">
+            <div class="todo-left">
+            <input class="complete" type="checkbox">
+            <p class="todo-title">title</p></div>
+            <div class="todo-right">
+              <button>Details</button>
+              <p class="date">1123</p>
+              <i class="fa-solid fa-pen-to-square"></i>
+              <i class="fa-solid fa-trash-can"></i>
+            </div>
+          </div>
+          <div class="todo priority-high">
+            <div class="todo-left">
+            <input class="complete" type="checkbox">
+            <p class="todo-title">title</p></div>
+            <div class="todo-right">
+              <button>Details</button>
+              <p class="date">1123</p>
+              <i class="fa-solid fa-pen-to-square"></i>
+              <i class="fa-solid fa-trash-can"></i>
+            </div>
+          </div>
+        </div>
+        <dialog class="add-dialog">
+          <div class="dialog-close">×</div>
+          <form id="form" action>
+           <div class="dialog-title">
+            <h2>Create new</h2>
+          </div>
+          <fieldset class="inputs">
+            <label for="type" class="chose-type">
+              <select name="type" id="type">
+                <option value="1">To do</option>
+                <option value="2">Project</option>
+              </select>
+            </label>
+          <label class="input-label" for="title">Title</label><input type="text" id="title" name="title" required>
+          <label class="input-label" for="details">Details</label><textarea name="details" id="details" cols="30" rows="8"></textarea>
+          <label  class="input-label" id="label-date" for="date">Due Date: <input type="date" id="date" name="date" required></label>
+        </fieldset>
+        
+         <fieldset class="priority">
+          <p>Priority:</p>
+          <div class="priority-ch">
+          <label for="low-pr" class="low-priority-pick">LOW</label>
+          <input type="radio" id="low-pr" name="priority" value="low" required>
+          <label for="mid-pr" class="medium-priority-pick">MEDIUM</label>
+          <input type="radio" id="mid-pr" name="priority" value="mid" required>
+          <label for="high-pr" class="high-priority-pick">HIGH</label>
+          <input type="radio" id="high-pr" name="priority" value="high" required>
+         </div>
+         </fieldset>
+         <div class="dbtn-div">
+         <button class="create-new-btn" type="submit">add to do</button>
+        </div>
+          </form>
+        </dialog>
        <script src="main.js"></script>
         </main> 
 </body>
