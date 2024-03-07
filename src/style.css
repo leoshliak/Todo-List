@@ -151,14 +151,14 @@ span{
 .content{
     background-color: rgb(31, 62, 94);
     border-radius: 30px 0 0 0;
-    padding: 3rem;
+    padding: 4rem;
     padding-top: 0;
     padding-bottom: 0;
     overflow-y: auto;
 }
 
 .tasks{
-    margin-top: 30px;
+    margin-top: 35px;
 }
 
 .todo{
@@ -170,7 +170,7 @@ span{
     background-color: #fff;
     color: rgb(31, 62, 94);
     padding: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
     transition: all 0.3s ease-out;
 }
 
@@ -209,11 +209,26 @@ span{
 
 .todo-left{
   gap: 15px;
+ 
+}
+
+.todo-title{
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .complete{
     width: 1.5rem;
     height: 1.5rem;
+   
+}
+
+.completed{
+    opacity: 0.65;
+}
+.completed-title{
+    opacity: 0.65;
+    text-decoration: line-through;
 }
 
 .todo-right button{
@@ -232,8 +247,20 @@ span{
     background-color: rgb(31, 62, 94) ;
     color: #fff;
     border: 2px solid rgb(31, 62, 94);
-
 }
+
+.date{
+  color: #1a6191;
+  font-weight: 600;
+}
+
+.fa-pen-to-square{
+    color: #7a7373;
+  }
+ 
+  .fa-trash-can{
+     color: #7a7373;
+  }
 
  .fa-pen-to-square:hover{
    color: rgb(2, 177, 177);
@@ -241,7 +268,7 @@ span{
  }
 
  .fa-trash-can:hover{
-    color: rgb(228, 38, 38);
+    color: red;
     cursor: pointer;
  }
 
@@ -258,12 +285,12 @@ span{
 
 
  dialog[open] {
-    -webkit-animation: show 1s ease normal;
+    animation: show 1s ease normal;
 }
 dialog.hide {
-    -webkit-animation: hide 1s ease normal;
+    animation: hide 1s ease normal;
 }
-@-webkit-keyframes show{
+@keyframes show{
     from {
         transform: translate(-50%,-180%);
 
@@ -272,7 +299,7 @@ dialog.hide {
         transform: translate(-50%,-50%);
     }
 }
-@-webkit-keyframes hide{
+@keyframes hide{
     to {
         transform: translate(-50%,-180%);
     }
@@ -392,6 +419,15 @@ dialog.hide {
     margin-right: 3px;
  }
 
+ #date:focus{
+    border: 2px solid #2c8fd1;
+    outline: 1px solid #2c8fd1;
+ }
+
+.date-disabled{
+    opacity: 0.5;
+}
+
  #label-date{
     display: flex;
     align-items: center;
@@ -470,6 +506,30 @@ input[type='radio']{
    background-color: red;
   }
 
+ .p-disabled-low,
+ .p-disabled-mid,
+ .p-disabled-high{
+    opacity: 0.5;
+ }
+ .p-disabled-low:hover{
+    border: 1px solid green;
+    color: green;
+    background-color: #fff;
+    cursor: default;
+ }
+.p-disabled-mid:hover{
+    border: 1px solid orange;
+    color: orange;
+    background-color: #fff;
+    cursor: default;
+}
+.p-disabled-high:hover{
+    border: 1px solid red;
+    color: red;
+    background-color: #fff;
+    cursor: default;
+}
+
 .dbtn-div{
     display: flex;
     justify-content: center;
@@ -484,13 +544,20 @@ input[type='radio']{
     font-weight: 700;
     text-transform: uppercase;
     border-radius: 5px;
-    color: rgb(31, 62, 94);
+    color: #fff;
     border: 3px solid rgb(31, 62, 94);
-    background-color: #fff;
+    background-color: rgb(31, 62, 94);
     transition: all 0.4s;
+    cursor: pointer;
   }
 
   .create-new-btn:hover{
-    color: #fff;
+    transform: scale(1.05);
+    background-color: rgb(37, 75, 112);
+    border: 3px solid rgb(37, 75, 112);
+  }
+ 
+  .create-new-btn:active{
+    transform: scale(1);
     background-color: rgb(31, 62, 94);
   }
