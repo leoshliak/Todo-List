@@ -10,7 +10,7 @@
     <header>
         <div class="header-content">
           <div class="logo">
-          <img src="/src/download.png" alt="">
+          <img src="/src/img/download.png" alt="">
         <h1>Todo List</h1>
           </div>
           <button class="add-button">+</button>
@@ -44,7 +44,7 @@
                 <option value="2">Project</option>
               </select>
             </label>
-          <label class="input-label" for="title">Title</label><input type="text" id="title" name="title" required maxlength="30">
+          <label class="input-label" for="title">Title</label><input type="text" id="title" name="title" required maxlength="25">
           <label class="input-label" for="details">Details</label><textarea name="details" id="details" cols="30" rows="8"></textarea>
           <label  class="input-label" id="label-date" for="date">Due Date: <input type="date" id="date" name="date" required></label>
         </fieldset>
@@ -65,7 +65,21 @@
         </div>
           </form>
         </dialog>
-         <dialog class="details-dialog"></dialog>
+        <dialog class="details-dialog">
+          <div class="dialog-close2">×</div>
+            <div class="det-title-div"><h2 class="det-title"></h2></div>
+            <div class="det-content">
+            <div class="det-priority">
+              <h4>Priority:</h4><p class="p-text"></p>
+            </div>
+            <div class="det-date">
+              <h4>Due Date:</h4><p class="d-text"></p>
+            </div>
+            <div class="det-description">
+             <p><span class="des-title">Description:</span><span class="des-text"></span></p>
+            </div>
+          </div>
+        </dialog>
        <script src="main.js"></script>
         </main> 
 </body>
