@@ -220,7 +220,15 @@ span{
 .complete{
     width: 1.5rem;
     height: 1.5rem;
-   
+    border: 2px solid #15b66b;
+   cursor: pointer;
+}
+
+.checked{
+    display: block;
+    background: url(img/check.png), #15b66b;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .completed{
@@ -284,10 +292,10 @@ span{
  }
 
 
- dialog[open] {
+ .add-dialog[open] {
     animation: show 1s ease normal;
 }
-dialog.hide {
+.add-dialog.hide {
     animation: hide 1s ease normal;
 }
 @keyframes show{
@@ -307,7 +315,7 @@ dialog.hide {
 
  ::backdrop{
    background-color: #000;
-   opacity: 0.3;
+   opacity: 0.35;
  }
 
  .dialog-close{
@@ -561,3 +569,109 @@ input[type='radio']{
     transform: scale(1);
     background-color: rgb(31, 62, 94);
   }
+
+  .details-dialog{
+    width: 60vh;
+    height: 40vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 10px; 
+    background-color: #e6e6e6;
+    color: rgb(31, 62, 94);
+    overflow: hidden;
+  }
+
+  .details-dialog[open] {
+    animation: show2 0.8s ease normal;
+}
+.details-dialog.hide2 {
+    animation: hide2 0.8s ease normal;
+}
+@keyframes show2{
+    from {
+        width: 0vh;
+       height: 0vh;
+    }
+    to {
+        width: 60vh;
+        height: 40vh;
+    }
+}
+@keyframes hide2{
+    to {
+        width: 0vh;
+        height: 0vh;
+    }
+}
+
+.dialog-close2{
+    font-size: 2rem;
+    color: rgb(31, 62, 94);
+    cursor: pointer;
+    position: absolute;
+    left: 94%;
+    transform: rotate(180deg);
+}
+
+.det-title-div{
+   display: flex;
+   justify-content: center;
+   margin-top: 10px;
+   margin-bottom: 15px;
+}
+
+
+.det-title{
+    font-size: 2.2rem;
+    letter-spacing: 0.6px;
+    color: #000;
+}
+
+.det-content{
+    font-size: 1.5rem;
+    margin-left: 15px;
+}
+.det-priority{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.low{
+    color: #7abb18
+}
+.mid{
+    color: orange;
+}
+.high{
+    color: red;
+}
+
+.det-date{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.d-text{
+    color: #2c8fd1;
+}
+
+.det-description{
+    width: 100%;
+    height: 22vh;
+    overflow-y: auto;
+   word-wrap: break-word;
+    
+}
+.des-title{
+    margin-right: 10px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.des-text{
+    color: #2d43c0;
+}

@@ -20,6 +20,8 @@ const dateInput = document.getElementById('date');
 const radioInputs = document.getElementsByName('priority');
 const createBtn = document.querySelector('.create-new-btn');
 const form = document.querySelector('#form');
+const detDialog = document.querySelector('.details-dialog');
+const detDialogCloseBtn = document.querySelector('.dialog-close2')
 let activeRadio;
 
 
@@ -40,11 +42,23 @@ let activeRadio;
     addDialog.addEventListener('animationend', onAnimationEnd, false);
   });
   
+ detDialogCloseBtn.addEventListener('click', ()=>{
+  detDialog.classList.add('hide2');
+  detDialog.addEventListener('animationend', onAnimationEnd2, false);
+ });
+
   function onAnimationEnd() {
     addDialog.classList.remove('hide');
     addDialog.close();
   
     addDialog.removeEventListener('animationend', onAnimationEnd, false);
+  }
+
+  function onAnimationEnd2() {
+    detDialog.classList.remove('hide2');
+    detDialog.close();
+  
+    detDialog.removeEventListener('animationend', onAnimationEnd2, false);
   }
 
  lowPriorityBtn.addEventListener('click', (e) =>{
@@ -145,8 +159,8 @@ class Todo {
     todoLeft.classList.add('todo-left');
     const todoRight = document.createElement('div');
     todoRight.classList.add('todo-right');
-     const completeInput = document.createElement('input');
-     completeInput.setAttribute('type', 'checkbox');
+     const completeInput = document.createElement('div');
+     //completeInput.setAttribute('type', 'checkbox');
      completeInput.classList.add('complete');
      const todoTitle = document.createElement('p');
      todoTitle.classList.add('todo-title');
@@ -173,26 +187,66 @@ class Todo {
      todoRight.appendChild(todoDate)
      todoRight.appendChild(editTodo);
      todoRight.appendChild(deleteTodo);
-    
-     completeInput.addEventListener('change', () => {
-      todoTitle.classList.toggle('completed-title', completeInput.checked);
-      detailsButton.classList.toggle('completed', completeInput.checked);
-      todoDate.classList.toggle('completed', completeInput.checked);
-      editTodo.classList.toggle('completed', completeInput.checked);
-      deleteTodo.classList.toggle('completed', completeInput.checked);
-    });
-
-    deleteTodo.addEventListener('click', () => {
-      allTodos.splice(parseInt(todoDiv.getAttribute('index')), 1);
-      todoContainer.removeChild(todoDiv);
-      updateId();
-      populateStorage();
-    });
   }
-  
 }
 
 const newTodo = new Todo();
+
+todoContainer.addEventListener('click', function(event) {
+  if (event.target.classList.contains('complete')) {
+    const completeInput = event.target;
+    const todoTitle = completeInput.parentElement.querySelector('.todo-title');
+    const detailsButton = completeInput.parentElement.nextElementSibling.querySelector('.details-btn');
+    const todoDate = completeInput.parentElement.nextElementSibling.querySelector('.date');
+    const editTodo = completeInput.parentElement.nextElementSibling.querySelector('.fa-pen-to-square');
+    const deleteTodo = completeInput.parentElement.nextElementSibling.querySelector('.fa-trash-can');
+
+    completeInput.classList.toggle('checked');
+    todoTitle.classList.toggle('completed-title', completeInput.checked);
+    detailsButton.classList.toggle('completed', completeInput.checked);
+    todoDate.classList.toggle('completed', completeInput.checked);
+    editTodo.classList.toggle('completed', completeInput.checked);
+    deleteTodo.classList.toggle('completed', completeInput.checked); 
+    
+    populateStorage();
+  }
+  if (event.target.classList.contains('fa-trash-can')) {
+    const todoDiv = event.target.parentElement.parentElement;
+    const index = parseInt(todoDiv.getAttribute('index'));
+    allTodos.splice(index, 1);
+    todoContainer.removeChild(todoDiv);
+    updateId();
+    populateStorage();
+  }
+  if(event.target.classList.contains('details-btn')){
+    const detTitle = document.querySelector('.det-title');
+    const detPriority = document.querySelector('.p-text')
+    const todoDiv = event.target.parentElement.parentElement;
+    const index = parseInt(todoDiv.getAttribute('index'));
+    const detDate = document.querySelector('.d-text');
+    const detDescription = document.querySelector('.des-text');
+   
+  console.log(todoDiv.index)
+
+    detTitle.textContent = allTodos[index].title;
+    if(allTodos[index].priority == 'low'){
+      detPriority.textContent = 'Low';
+      detPriority.classList.add('low');
+    }else if(allTodos[index].priority == 'mid'){
+      detPriority.textContent = 'Medium';
+      detPriority.classList.add('mid');
+    }else if(allTodos[index].priority == 'high'){
+      detPriority.textContent = 'High';
+      detPriority.classList.add('high');
+    }
+    detDate.textContent = allTodos[index].dueDate;
+    detDescription.textContent = allTodos[index].description;
+     
+    detDialog.showModal();
+  }
+});
+
+
 
 createBtn.addEventListener('click', (event) => {
   event.preventDefault();
@@ -212,6 +266,7 @@ if(!localStorage.getItem('todos')){
   populateStorage();
 }else{
   remember();
+  
 }
 
 function populateStorage(){
@@ -230,3 +285,4 @@ function remember(){
 }
 
      console.log(allTodos);
+     console.log(allTodos[0].title);
