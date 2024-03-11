@@ -21,8 +21,16 @@ const radioInputs = document.getElementsByName('priority');
 const createBtn = document.querySelector('.create-new-btn');
 const form = document.querySelector('#form');
 const detDialog = document.querySelector('.details-dialog');
-const detDialogCloseBtn = document.querySelector('.dialog-close2')
+const detDialogCloseBtn = document.querySelector('.dialog-close2');
+const editDialog = document.querySelector('.edit-dialog');
+const editDialogClose = document.querySelector('.dialog-close3');
+const eLowPriorityBtn = document.querySelector('.e-low-priority-pick');
+const eMidPriorityBtn = document.querySelector('.e-medium-priority-pick');
+const eHighPriorityBtn = document.querySelector('.e-high-priority-pick');
+const editRadioInputs = document.getElementsByName('e-priority');
+const confirmBtn = document.querySelector('.create-new-ebtn');
 let activeRadio;
+let activeRadio2;
 
 
   listLinks.forEach(link => {
@@ -47,6 +55,11 @@ let activeRadio;
   detDialog.addEventListener('animationend', onAnimationEnd2, false);
  });
 
+ editDialogClose.addEventListener('click', ()=>{
+  editDialog.classList.add('hide3');
+  editDialog.addEventListener('animationend', onAnimationEnd3, false);
+ });
+
   function onAnimationEnd() {
     addDialog.classList.remove('hide');
     addDialog.close();
@@ -59,6 +72,18 @@ let activeRadio;
     detDialog.close();
   
     detDialog.removeEventListener('animationend', onAnimationEnd2, false);
+  }
+
+  function onAnimationEnd3() {
+    editDialog.classList.remove('hide3');
+    editDialog.close();
+    editDialog.removeEventListener('animationend', onAnimationEnd3, false);
+  }
+  function onAnimationEnd03() {
+    editDialog.classList.remove('hide3');
+    editDialog.close();
+    location.reload();
+    editDialog.removeEventListener('animationend', onAnimationEnd3, false);
   }
 
  lowPriorityBtn.addEventListener('click', (e) =>{
@@ -81,11 +106,36 @@ highPriorityBtn.addEventListener('click', (e) =>{
  midPriorityBtn.classList.remove('mid-picked');
 });
 
+eLowPriorityBtn.addEventListener('click', (e) =>{
+   e.target.classList.add('low-picked');
+   eMidPriorityBtn.classList.remove('mid-picked');
+   eHighPriorityBtn.classList.remove('high-picked');
+ });
+
+ eMidPriorityBtn.addEventListener('click', (e) =>{
+  e.target.classList.add('mid-picked');
+  eLowPriorityBtn.classList.remove('low-picked');
+  eHighPriorityBtn.classList.remove('high-picked');
+});
+
+eHighPriorityBtn.addEventListener('click', (e) =>{
+ e.target.classList.add('high-picked');
+ eLowPriorityBtn.classList.remove('low-picked');
+ eMidPriorityBtn.classList.remove('mid-picked');
+});
 
 function getRadioValue() {
   for (let i = 0; i < radioInputs.length; i++) {
     if (radioInputs[i].checked) {
       activeRadio = radioInputs[i].value;
+    }
+  }
+}
+
+function getRadioValue2() {
+  for (let i = 0; i < editRadioInputs.length; i++) {
+    if (editRadioInputs[i].checked) {
+      activeRadio2 = editRadioInputs[i].value;
     }
   }
 }
@@ -225,8 +275,6 @@ todoContainer.addEventListener('click', function(event) {
     const index = parseInt(todoDiv.getAttribute('index'));
     const detDate = document.querySelector('.d-text');
     const detDescription = document.querySelector('.des-text');
-   
-  console.log(todoDiv.index)
 
     detTitle.textContent = allTodos[index].title;
     if(allTodos[index].priority == 'low'){
@@ -243,6 +291,72 @@ todoContainer.addEventListener('click', function(event) {
     detDescription.textContent = allTodos[index].description;
      
     detDialog.showModal();
+  }
+  if(event.target.classList.contains('fa-pen-to-square')){
+    const todoDiv = event.target.parentElement.parentElement;
+    const index = parseInt(todoDiv.getAttribute('index'));
+    const editInputTitle = document.querySelector('#e-title');
+    const editTextarea = document.querySelector('#e-details');
+    const editDate = document.querySelector('#e-date');
+    const editLowInput = document.querySelector('#e-low-pr');
+    const editMidInput = document.querySelector('#e-mid-pr');
+    const editHighInput = document.querySelector('#e-high-pr');
+   editInputTitle.value = allTodos[index].title;
+   editTextarea.value = allTodos[index].description;
+   editDate.value = allTodos[index].dueDate;
+   if(allTodos[index].priority == 'low'){
+    eLowPriorityBtn.classList.add('low-picked');
+    eMidPriorityBtn.classList.remove('mid-picked');
+    eHighPriorityBtn.classList.remove('high-picked');
+    editLowInput.setAttribute('checked', 'checked');
+    editMidInput.removeAttribute('checked');
+    editHighInput.removeAttribute('checked');
+   }else if(allTodos[index].priority == 'mid'){
+    eMidPriorityBtn.classList.add('mid-picked');
+    eLowPriorityBtn.classList.remove('low-picked');
+    eHighPriorityBtn.classList.remove('high-picked');
+    editMidInput.setAttribute('checked', 'checked');
+    editLowInput.removeAttribute('checked');
+    editHighInput.removeAttribute('checked');
+   }else if(allTodos[index].priority == 'high'){
+     eHighPriorityBtn.classList.add('high-picked');
+     eLowPriorityBtn.classList.remove('low-picked');
+     eMidPriorityBtn.classList.remove('mid-picked');
+     editHighInput.setAttribute('checked', 'checked');
+     editLowInput.removeAttribute('checked')
+     editMidInput.removeAttribute('checked');
+   }
+   confirmBtn.addEventListener('click', (event) =>{
+    event.preventDefault();
+    getRadioValue2();
+    if (!editInputTitle.value ||  !editDate.value || activeRadio2 === undefined || activeRadio2 === null) {
+      alert('Please fill out all required fields.');
+      return;
+    }
+    allTodos[index].title = editInputTitle.value;
+    allTodos[index].description = editTextarea.value;
+    allTodos[index].dueDate = editDate.value;
+    allTodos[index].priority = activeRadio2;
+    todoDiv.querySelector('.todo-title').textContent = allTodos[index].title;
+    todoDiv.querySelector('.date').textContent = allTodos[index].dueDate;
+    if(allTodos[index].priority == 'low'){
+      todoDiv.classList.add('priority-low');
+      todoDiv.classList.remove('priority-medium');
+      todoDiv.classList.remove('priority-high');
+    }else if(allTodos[index].priority == 'mid'){
+      todoDiv.classList.add('priority-medium');
+      todoDiv.classList.remove('priority-low');
+      todoDiv.classList.remove('priority-high');
+    }else if(allTodos[index].priority == 'high'){
+      todoDiv.classList.add('priority-high');
+      todoDiv.classList.remove('priority-low');
+      todoDiv.classList.remove('priority-medium');
+    }
+    populateStorage();
+    editDialog.classList.add('hide3');
+    editDialog.addEventListener('animationend', onAnimationEnd03, false); 
+  })
+    editDialog.showModal();
   }
 });
 
@@ -261,6 +375,8 @@ createBtn.addEventListener('click', (event) => {
   populateStorage();
   
 });
+
+
 
 if(!localStorage.getItem('todos')){
   populateStorage();
@@ -285,4 +401,4 @@ function remember(){
 }
 
      console.log(allTodos);
-     console.log(allTodos[0].title);
+     
