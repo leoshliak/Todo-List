@@ -80,6 +80,34 @@
             </div>
           </div>
         </dialog>
+        <dialog class="edit-dialog">
+          <div class="dialog-close3">×</div>
+          <form id="form" action>
+           <div class="dialog-title2">
+            <h2>Edit Todo</h2>
+          </div>
+          <fieldset class="edit-inputs">
+          <label class="e-input-label" for="e-title">Title</label><input type="text" id="e-title" name="title" required maxlength="25">
+          <label class="e-input-label" for="e-details">Details</label><textarea name="details" id="e-details" cols="30" rows="8"></textarea>
+          <label  class="e-input-label" id="e-label-date" for="e-date">Due Date: <input type="date" id="e-date" name="date" required></label>
+        </fieldset>
+        
+         <fieldset class="edit-priority">
+          <p>Priority:</p>
+          <div class="e-priority-ch">
+          <label for="e-low-pr" class="e-low-priority-pick">LOW</label>
+          <input type="radio"  id="e-low-pr" name="e-priority" value="low" required>
+          <label for="e-mid-pr" class="e-medium-priority-pick">MEDIUM</label>
+          <input type="radio"  id="e-mid-pr" name="e-priority" value="mid" required>
+          <label for="e-high-pr" class="e-high-priority-pick">HIGH</label>
+          <input type="radio"  id="e-high-pr" name="e-priority" value="high" required>
+         </div>
+         </fieldset>
+         <div class="ebtn-div">
+         <button class="create-new-ebtn" type="submit">Confirm</button>
+        </div>
+          </form>
+        </dialog>
        <script src="main.js"></script>
         </main> 
 </body>
