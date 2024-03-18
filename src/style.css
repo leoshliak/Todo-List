@@ -99,15 +99,19 @@ nav{
     height: 100%;
     position: sticky;
     top: 0;
+    direction:rtl;
+    overflow:auto;
 }
+
 
 .nav-list{
     list-style: none;
     display: grid;
-    gap: 2rem;
-    font-size: 1.6rem;
+    gap: 1.2rem;
+    font-size: 1.55rem;
     padding-block: 2rem;
-    margin-top: 20px;
+    margin-top: 15px;
+    direction:ltr;
 }
 
 .nav-list li{
@@ -115,6 +119,26 @@ nav{
     margin-left: 2.5rem;
     border-radius: 100vw 0 0 100vw;
     cursor: pointer;
+}
+
+#projects{
+    cursor: auto;
+    padding-bottom: 0.3rem;
+}
+
+.project{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.project span{
+    word-wrap: break-word;
+    max-width: 120px;
+}
+
+.fa-circle-xmark{
+  margin-left: 10px;
 }
 
 .nav-list li.active{
@@ -129,7 +153,8 @@ span{
 }
 
 .nav-list li.active::before,
-.nav-list li.active::after{
+.nav-list li.active::after,
+.before, .after{
     content: '';
     position: absolute;
     right: 0;
@@ -138,13 +163,15 @@ span{
     background: #000;
 }
 
-.nav-list li.active::before{
+.nav-list li.active::before,
+.before{
     top: calc(1.5rem * -1);
     box-shadow: 5px 5px 0 5px rgb(31, 62, 94);
     border-radius: 0 0 100vw 0;
 }
 
-.nav-list li.active::after{
+.nav-list li.active::after,
+.after{
     bottom: calc(1.5rem * -1);
     box-shadow: 5px -5px 0 5px rgb(31, 62, 94);
     border-radius: 0 100vw 0 0;
@@ -543,7 +570,7 @@ input[type='radio']{
     opacity: 0.5;
  }
  .p-disabled-low:hover{
-    border: 2cap solid green;
+    border: 2px solid green;
     color: green;
     background-color: #fff;
     cursor: default;
