@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import './style.css';
 
-
 const listLinks = document.querySelectorAll('.list-link');
 const allList = document.getElementById('all');
 const todayList = document.getElementById('today');
@@ -36,7 +35,6 @@ const confirmBtn = document.querySelector('.create-new-ebtn');
 const navList = document.querySelector('.nav-list');
 let activeRadio;
 let activeRadio2;
-
 
   listLinks.forEach(link => {
     link.addEventListener('click', (e) => {
@@ -150,6 +148,8 @@ typeSelector.addEventListener('change', pickType);
 
 function pickType() {
   if (typeSelector.value == 2) {
+    detailsText.setAttribute('disabled', 'disabled');
+    detailsText.classList.add('date-disabled');
     dateInput.setAttribute('disabled', 'disabled');
     dateInput.classList.add('date-disabled');
     lowInput.setAttribute('disabled', 'disabled');
@@ -165,6 +165,8 @@ function pickType() {
     createBtn.classList.add('pr');
     createBtn.classList.remove('td')
   } else if (typeSelector.value == 1) {
+    detailsText.removeAttribute('disabled');
+    detailsText.classList.remove('date-disabled');
     dateInput.removeAttribute('disabled');
     lowInput.removeAttribute('disabled');
     midInput .removeAttribute('disabled');
@@ -228,16 +230,19 @@ importantList.addEventListener('click', () =>{
 });
 
 function populateContainer(i){
-  const todoDiv = document.createElement('div');
-  todoDiv.setAttribute('index', i);
-  todoDiv.classList.add('todo');
-  if(allTodos[i].priority == 'low'){
-    todoDiv.classList.add('priority-low');
-  }else if(allTodos[i].priority == 'mid'){
-    todoDiv.classList.add('priority-medium')
-  }else if(allTodos[i].priority == 'high'){
-    todoDiv.classList.add('priority-high')
-  }
+  if (i >= 0 && i < allTodos.length) {
+    const todoDiv = document.createElement('div');
+    todoDiv.setAttribute('index', i);
+    todoDiv.classList.add('todo');
+    if (allTodos[i].priority) {
+      if (allTodos[i].priority === 'low') {
+        todoDiv.classList.add('priority-low');
+      } else if (allTodos[i].priority === 'mid') {
+        todoDiv.classList.add('priority-medium');
+      } else if (allTodos[i].priority === 'high') {
+        todoDiv.classList.add('priority-high');
+      }
+    }
   const todoLeft = document.createElement('div');
   todoLeft.classList.add('todo-left');
   const todoRight = document.createElement('div');
@@ -276,6 +281,7 @@ function populateContainer(i){
    todoRight.appendChild(todoDate)
    todoRight.appendChild(editTodo);
    todoRight.appendChild(deleteTodo);
+  }
 }
 
 let allTodos = [];
@@ -349,7 +355,6 @@ class Todo {
     project.classList.add('list-link');
     project.classList.add('project');
     project.setAttribute('id', inputTitle.value);
-    //project.innerHTML = `<span>${inputTitle.value}</span>`;
     const projectSpan = document.createElement('span');
     projectSpan.textContent = `${inputTitle.value}`;
     const deleteProject= document.createElement('i');
@@ -490,9 +495,6 @@ todoContainer.addEventListener('click', function(event) {
   })
     editDialog.showModal();
   }
-  if(event.target.classList.contains('fa-circle-xmark')){
-    console.log('pon');
-  }
 });
 
 
@@ -551,12 +553,14 @@ createBtn.addEventListener('click', (event) => {
   populateStorage();
 });
 
+
 if(!localStorage.getItem('todos')){
   populateStorage();
 }else{
   remember();
   
 }
+
 
 function populateStorage(){
   localStorage.setItem('todos', JSON.stringify(allTodos));
@@ -662,7 +666,13 @@ function remember(){
 
   parentElement.addEventListener('click', (e) => {
     if (e.target.classList.contains('fa-circle-xmark')) {
+      const allList = document.getElementById('all');
         const targetProject = e.target.parentElement;
+        const listLinks = document.querySelectorAll('.list-link');
+        const todayList = document.getElementById('today');
+        const weekList = document.getElementById('week');
+        const importantList = document.getElementById('important');
+        if(allList.classList.contains('active') || targetProject.classList.contains('active')){
         listLinks.forEach(link => link.classList.remove('active'));
         const before = document.createElement('span');
         const after = document.createElement('span');
@@ -676,23 +686,34 @@ function remember(){
           if (existingAfter) {
               link.removeChild(existingAfter);
           }
-          link.appendChild(before.cloneNode());
-          link.appendChild(after.cloneNode());
+          link.appendChild(before);
+          link.appendChild(after);
       });
+      
         allList.classList.add('active');
+      }
         parentElement.removeChild(targetProject);
+        let todayDate = new Date(today);
   for (let i = 0; i < allTodos.length; i++) {
+    let arrayDate = new Date(allTodos[i].dueDate);
+    let differenceInTime = arrayDate.getTime() - todayDate.getTime();
+    let differenceInDays = Math.round(differenceInTime / (1000 * 60 * 60 * 24));
     if(allTodos[i].project == targetProject.id){
       allTodos.splice(i, 1);
     }
+    if(allList.classList.contains('active') || targetProject.classList.contains('active')){
     populateContainer(i);
+  } if(todayList.classList.contains('active') && allTodos[i].dueDate == today){
+    populateContainer(i);
+  }if(weekList.classList.contains('active') && differenceInDays >= 0){
+    populateContainer(i);
+  }if(importantList.classList.contains('active') && allTodos[i].priority == 'high'){
+    populateContainer(i);
+  }
   }
    populateStorage()
     }
 });
 }
-
-
-
      console.log(allTodos);
      
