@@ -33,6 +33,9 @@ const eHighPriorityBtn = document.querySelector('.e-high-priority-pick');
 const editRadioInputs = document.getElementsByName('e-priority');
 const confirmBtn = document.querySelector('.create-new-ebtn');
 const navList = document.querySelector('.nav-list');
+const menuIcon = document.querySelector('.menu-icon');
+const main = document.querySelector('.main');
+const content = document.querySelector('.content');
 let activeRadio;
 let activeRadio2;
 
@@ -89,6 +92,14 @@ let activeRadio2;
     location.reload();
     editDialog.removeEventListener('animationend', onAnimationEnd3, false);
   }
+
+ if(menuIcon){
+ menuIcon.addEventListener('click', () =>{
+   menuIcon.classList.toggle('active');
+   main.classList.toggle('nav-open');
+   content.classList.toggle('nav-open');
+ });
+   }
 
  lowPriorityBtn.addEventListener('click', (e) =>{
   if(e.target.classList.contains('p-disabled-low'))return;
