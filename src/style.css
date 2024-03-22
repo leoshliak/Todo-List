@@ -1339,9 +1339,4 @@ form {
     }
 }
 
-@media (min-height: 900px) {
-.add-dialog {
-    width: 60vh;
-    height: 55vh;
-}
-}
+
